@@ -24,7 +24,7 @@ module.exports = appInfo => {
     host: 'localhost',
     port: 3306,
     username: 'root',
-    password: '',
+    password: '123456',
     // delegate: 'myModel', // load all models to `app[delegate]` and `ctx[delegate]`, default to `model`
     // baseDir: 'my_model', // load all files in `app/${baseDir}` as models, default to `model`
     // exclude: 'index.js', // ignore `app/${baseDir}/index.js` when load models, support glob and array

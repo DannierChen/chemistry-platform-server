@@ -42,6 +42,13 @@ module.exports = appInfo => {
     domainWhiteList: [ 'http://localhost:4444', 'http://192.168.31.189:4444' ],
   };
 
+  config.view = {
+    mapping: {
+      '.nj': 'nunjucks',
+    },
+    defaultExtension: '.nj',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

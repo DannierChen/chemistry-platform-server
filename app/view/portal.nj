@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Portal</title>
+  <link href="http://pznrim6s8.bkt.clouddn.com/index.css" />
+  <link
+    rel="stylesheet"
+    href="https://video-react.github.io/assets/video-react.css"
+  />
+  <script src="http://pznrim6s8.bkt.clouddn.com/index.js"></script>
 </head>
 <body>
-  <p>sdsds</p>
+      <div id="ice-container"></div>
 </body>
 </html>

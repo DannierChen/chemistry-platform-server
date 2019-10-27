@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Portal</title>
+  <link rel="stylesheet" href="https://raw.githack.com/DannierChen/chemistry-platform-admin/00be7f40759a44561637e47a13e4b2e8c6d0a357/build/css/index.css" />
+  <link rel="stylesheet" href="https://video-react.github.io/assets/video-react.css" />
+</head>
+<body>
+      <div id="ice-container"></div>
+</body>
+  <script src="https://raw.githack.com/DannierChen/chemistry-platform-admin/00be7f40759a44561637e47a13e4b2e8c6d0a357/build/js/index.js"></script>
+</html>

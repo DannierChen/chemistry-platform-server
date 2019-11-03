@@ -9,7 +9,7 @@ module.exports = class UserController extends Controller {
   async login() {
     const { ctx } = this;
 
-    const { username: userName, password: userPass } = ctx.request.body;
+    const { userName, userPass } = ctx.request.body;
 
     if (ctx.session.userId) {
       ctx.body = {
@@ -40,8 +40,10 @@ module.exports = class UserController extends Controller {
         message: '用户名或密码错误',
       };
     } else {
-      ctx.cookies.set('userId', userInfo.get('userId'));
-      ctx.session.userId = userInfo.get('userId');
+      ctx.cookies.set('userId', userInfo.dataValues.userId);
+      ctx.cookies.set('userName', userInfo.dataValues.userName);
+
+      ctx.session.userId = userInfo.dataValues.userId;
 
       ctx.body = {
         code: 201,

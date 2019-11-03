@@ -6,7 +6,12 @@ module.exports = {
   // static: {
   //   enable: true,
   // }
-  session: true,
+  session: {
+    key: 'EGG_SESS',
+    maxAge: 24 * 3600 * 1000, // 1 天
+    httpOnly: false,
+    encrypt: true,
+  },
   redis: {
     enable: true,
     package: 'egg-redis',

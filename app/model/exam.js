@@ -6,15 +6,18 @@ module.exports = app => {
   const Exam = app.model.define('exam',
     {
       examId: { type: INTEGER, primaryKey: true, autoIncrement: true },
-      userId: INTEGER(3),
-      examName: STRING(255),
-      quesCount: INTEGER(1),
+      user_id: INTEGER,
+      exam_name: STRING,
+      ques_count: INTEGER,
     },
     {
-      underscoredAll: true,
       freezeTableName: true,
     }
   );
+
+  Exam.associate = function() {
+    app.model.Exam.belongsTo(app.model.User, { foreignKey: 'user_id' });
+  };
 
   return Exam;
 };

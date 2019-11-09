@@ -3,7 +3,7 @@
 module.exports = app => {
   const { STRING, INTEGER } = app.Sequelize;
 
-  const Exam = app.model.define('ques',
+  const Ques = app.model.define('ques',
     {
       quesId: { type: INTEGER, primaryKey: true, autoIncrement: true },
       exam_id: INTEGER,
@@ -17,5 +17,9 @@ module.exports = app => {
     }
   );
 
-  return Exam;
+  Ques.associate = function() {
+    app.model.Ques.belongsTo(app.model.Exam, { foreignKey: 'exam_id' });
+  };
+
+  return Ques;
 };

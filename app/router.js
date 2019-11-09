@@ -15,7 +15,13 @@ module.exports = app => {
 
   router.get('/exam/list', controller.exam.getExamList);
   router.post('/exam/create', controller.exam.create);
+  router.get('/exam/getExamData', controller.exam.getExamData);
 
   router.post('/article/create', controller.article.create);
+  router.post('/article/update', controller.article.update);
+  router.get('/article/getArticleData', controller.article.getArticleData);
   router.get('/article/list', controller.article.list);
+
+  router.get('/record/getRecord', controller.record.getRecord);
+  router.post('/record/saveRecord', controller.record.saveRecord);
 };

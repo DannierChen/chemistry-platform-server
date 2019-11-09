@@ -16,6 +16,10 @@ class IndexController extends Controller {
   async admin() {
     const { ctx } = this;
 
+    // if (!ctx.session.userId) {
+    //   ctx.redirect(`/admin#/user/login`);
+    // }
+
     await ctx.render('admin', {
       userId: ctx.cookies.get('userId'),
       userName: ctx.cookies.get('userName')

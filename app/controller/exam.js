@@ -88,10 +88,75 @@ class ExamController extends Controller {
         };
       }
     }
+  }
 
-    // ctx.model.
+  async getExamData() {
+    const { ctx } = this;
 
-    // ctx.body = `body: ${JSON.stringify(ctx.request.body)}`;
+    const examId = ctx.query.examId;
+
+    if (examId) {
+      const examData = await ctx.model.Exam.findOne({
+        where: {
+          exam_id: examId
+        },
+        include: [{
+          model: ctx.model.Ques
+        }]
+      });
+
+      ctx.body = {
+        success: true,
+        data: examData
+      };
+    } else {
+      ctx.body = {
+        success: false,
+        message: "数据获取失败"
+      };
+    }
+  }
+
+  async saveRecord() {
+    const { ctx } = this;
+    const { request, session } = ctx;
+
+    const userId = session.stuId;
+    let recordInfo = request.body;
+
+    const scoreRecordData = await ctx.model.ScoreRecord.findOne({
+      where: {
+        user_id: userId || 2,
+        origin: recordInfo.origin,
+        origin_id: recordInfo.origin_id
+      }
+    });
+
+    if (scoreRecordData != null) {
+      console.log(Object.assign({}, scoreRecordData.dataValues, recordInfo));
+
+      const ret = await ctx.model.ScoreRecord.update(Object.assign({}, scoreRecordData.dataValues, recordInfo), {
+        where: {
+          score_record_id: scoreRecordData['score_record_id']
+        }
+      });
+
+      if (ret != null) {
+        ctx.body = {
+          success: true
+        }
+      }
+    } else {
+      const ret = ctx.model.ScoreRecord.create(Object.assign({}, recordInfo, {
+        user_id: userId || 2
+      }));
+
+      if (ret != null) {
+        ctx.body = {
+          success: true
+        }
+      }
+    }
   }
 }
 

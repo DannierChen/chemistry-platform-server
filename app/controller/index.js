@@ -13,6 +13,14 @@ class IndexController extends Controller {
     });
   }
 
+  async canvas() {
+    const { ctx } = this;
+
+    await ctx.render('canvas', {
+      user: ctx.session.userInfo
+    });
+  }
+
   async admin() {
     const { ctx } = this;
 

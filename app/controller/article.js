@@ -107,7 +107,6 @@ class ArticleController extends Controller {
 
     console.log(ctx.query);
 
-
     if (articleId) {
       const articleData = await ctx.model.Article.findOne({
         where: {

@@ -8,6 +8,8 @@ module.exports = app => {
 
   router.get('/portal', controller.index.portal);
   router.get('/admin', controller.index.admin);
+  router.get('/canvas', controller.index.canvas);
+
   router.get('/getTermList', controller.index.getTermList);
 
   router.post('/user/login', controller.user.login);
@@ -24,4 +26,10 @@ module.exports = app => {
 
   router.get('/record/getRecord', controller.record.getRecord);
   router.post('/record/saveRecord', controller.record.saveRecord);
+
+  router.get('/experiment/list', controller.experiment.list);
+  router.post('/experiment/create', controller.experiment.create);
+  router.get('/experiment/getExperimentData', controller.experiment.getExperimentData);
+
+  router.post('/report/saveReport', controller.report.saveReport);
 };

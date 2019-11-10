@@ -67,12 +67,16 @@ class ArticleController extends Controller {
   async list() {
     const { ctx } = this;
 
-    const userId = ctx.session.userId;
+    let whereCondition = {};
+
+    if (ctx.get('referer').includes('admin')) {
+      whereCondition = {
+        user_id: ctx.session.userId
+      };
+    }
 
     const articleList = await ctx.model.Article.findAll({
-      where: {
-        user_id: userId
-      },
+      where: whereCondition,
       raw: true,
       include: [{
         model: ctx.model.User,

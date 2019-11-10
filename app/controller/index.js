@@ -8,6 +8,10 @@ class IndexController extends Controller {
   async portal() {
     const { ctx } = this;
 
+    if (!ctx.session.stuId) {
+      await ctx.unsafeRedirect('/portal/#/user/login');
+    }
+
     await ctx.render('portal', {
       user: ctx.session.userInfo
     });

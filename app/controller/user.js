@@ -9,9 +9,17 @@ module.exports = class UserController extends Controller {
   async login() {
     const { ctx } = this;
 
-    const { userName, userPass } = ctx.request.body;
+    const { session, request } = ctx;
 
-    if (ctx.session.userId) {
+    const { userName, userPass } = request.body;
+
+    let userId = session.userId;
+
+    if (ctx.get('referer').includes('portal')) {
+      userId = session.stuId;
+    }
+
+    if (userId) {
       ctx.body = {
         code: 201,
         success: true,
@@ -23,7 +31,6 @@ module.exports = class UserController extends Controller {
           }
         })
       };
-      return;
     }
 
     const userInfo = await ctx.model.User.findOne({
@@ -40,15 +47,19 @@ module.exports = class UserController extends Controller {
         message: '用户名或密码错误',
       };
     } else {
-      ctx.cookies.set('userId', userInfo.dataValues.userId);
-      ctx.cookies.set('userName', userInfo.dataValues.userName);
+      // ctx.cookies.set('userId', userInfo.dataValues.userId);
+      // ctx.cookies.set('userName', userInfo.dataValues.userName);
 
-      ctx.session.userId = userInfo.dataValues.userId;
+      if (ctx.get('referer').includes('portal')) {
+        ctx.session.stuId = userInfo.dataValues.userId;
+      } else {
+        ctx.session.userId = userInfo.dataValues.userId;
+      }
 
       ctx.body = {
-        code: 201,
+        code: 200,
         success: true,
-        data: _.pick(userInfo, [ 'userId' ]),
+        data: _.pick(userInfo, [ 'userId', 'userName']),
       };
     }
   }

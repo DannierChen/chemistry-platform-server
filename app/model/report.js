@@ -7,9 +7,10 @@ module.exports = app => {
     {
       reportId: { type: INTEGER, primaryKey: true, autoIncrement: true },
       user_id: INTEGER,
-      report_capture_url: STRING,
+      experiment_id: INTEGER,
+      report_capture: STRING,
       report_content: STRING,
-      report_video_url: STRING
+      report_video: STRING
     },
     {
       freezeTableName: true,

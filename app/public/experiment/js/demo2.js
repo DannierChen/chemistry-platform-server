@@ -28,6 +28,14 @@ function drawArrow(fromX, fromY, toX, toY, theta, headlen) {
   return path;
 }
 
+$('#downloadImage').click(()=> {
+  canvasToImage('c', {
+    name: `experiment-design-${Date.now()}`,
+    type: 'png',
+    quality: 1
+  });
+});
+
 function toggleUniform() {
   var aObject = canvas.getActiveObject();
   if (aObject.type === 'activeSelection') {
@@ -166,7 +174,7 @@ function toggleUniform() {
       case "remove":
         break;
       case "image":
-        new fabric.Image.fromURL(`./image/qc/${imageIndex}.png`, function (imgInstance) {
+        new fabric.Image.fromURL(`../public/experiment/image/qc/${imageIndex}.png`, function (imgInstance) {
           imgInstance.scaleToHeight(400, false);  //缩放图片的高度到400
           imgInstance.scaleToWidth(400, false);   //缩放图片的宽度到400
 

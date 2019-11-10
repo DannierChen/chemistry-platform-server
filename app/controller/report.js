@@ -10,18 +10,17 @@ class ReportController extends Controller {
 
     const userId = session.stuId;
 
-    const recordData = await ctx.model.ScoreRecord.findOne({
+    const reportData = await ctx.model.Report.findOne({
       where: {
-        user_id: userId || 2,
-        origin: query.origin,
-        origin_id: query.origin_id
+        user_id: userId || -1,
+        experiment_id: query.experiment_id
       }
     });
 
-    if (recordData != null) {
+    if (reportData != null) {
       ctx.body = {
         success: true,
-        data: recordData
+        data: reportData
       };
     } else {
       ctx.body = {
@@ -36,22 +35,28 @@ class ReportController extends Controller {
     const { request, session } = ctx;
 
     const userId = session.stuId;
-    let recordInfo = request.body;
+    let reportInfo = request.body;
 
-    const scoreRecordData = await ctx.model.ScoreRecord.findOne({
+    if (!userId) {
+      ctx.body = {
+        success: false,
+        message: '请登录'
+      };
+
+      return;
+    }
+
+    const reportData = await ctx.model.Report.findOne({
       where: {
-        user_id: userId || 2,
-        origin: recordInfo.origin,
-        origin_id: recordInfo.origin_id
+        user_id: userId,
+        experiment_id: reportInfo.experiment_id
       }
     });
 
-    if (scoreRecordData != null) {
-      console.log(Object.assign({}, scoreRecordData.dataValues, recordInfo));
-
-      const ret = await ctx.model.ScoreRecord.update(Object.assign({}, scoreRecordData.dataValues, recordInfo), {
+    if (reportData != null) {
+      const ret = await ctx.model.Report.update(Object.assign({}, reportData.dataValues, reportInfo), {
         where: {
-          score_record_id: scoreRecordData['score_record_id']
+          report_id: reportData['reportId']
         }
       });
 
@@ -61,8 +66,8 @@ class ReportController extends Controller {
         }
       }
     } else {
-      const ret = ctx.model.ScoreRecord.create(Object.assign({}, recordInfo, {
-        user_id: userId || 2
+      const ret = await ctx.model.Report.create(Object.assign({}, reportInfo, {
+        user_id: userId
       }));
 
       if (ret != null) {

@@ -10,6 +10,8 @@ class RecordController extends Controller {
 
     const userId = session.stuId;
 
+    console.log()
+
     const recordData = await ctx.model.ScoreRecord.findOne({
       where: {
         user_id: userId || 2,

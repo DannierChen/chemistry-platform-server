@@ -61,7 +61,7 @@ module.exports = class UserController extends Controller {
       ctx.body = {
         code: 200,
         success: true,
-        data: _.pick(userInfo, [ 'userId', 'userName']),
+        data: _.pick(userInfo, [ 'userId', 'userName', 'userType']),
       };
     }
   }

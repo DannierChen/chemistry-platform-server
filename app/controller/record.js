@@ -74,6 +74,59 @@ class RecordController extends Controller {
       }
     }
   }
+
+  async getArticleRecordList() {
+    const { ctx } = this;
+
+    const userId = ctx.session.userId;
+
+    const userInfo = await ctx.model.User.findOne({
+      where: {
+        userId
+      }
+    });
+
+    const sUserId = userInfo.sUserId;
+
+    const recordList = await ctx.model.ScoreRecord.findAll({
+      raw: true,
+      where: {
+        user_id: sUserId,
+        origin: "article"
+      }
+    });
+
+    for (let i = 0; i < recordList.length; i++) {
+      const record = recordList[i];
+
+      const articleInfo = await ctx.model.Article.findOne({
+        raw: true,
+        where: {
+          articleId: record.origin_id
+        }
+      });
+
+      record.articleTitle = articleInfo.article_title;
+
+      if (record.exam_id) {
+        const examInfo = await ctx.model.Exam.findOne({
+          raw: true,
+          where: {
+            examId: record.exam_id
+          }
+        });
+
+        record.examName = examInfo.exam_name;
+      }
+
+      record.articleTitle = articleInfo.article_title;
+    }
+
+    ctx.body = {
+      success: true,
+      data: recordList
+    };
+  }
 }
 
 module.exports = RecordController;

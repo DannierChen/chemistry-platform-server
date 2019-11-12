@@ -8,6 +8,9 @@ module.exports = app => {
       userId: { type: INTEGER, primaryKey: true, autoIncrement: true },
       userName: STRING(50),
       userPass: STRING(255),
+      userType: INTEGER,
+      sUserId: INTEGER,
+      fUserId: INTEGER
     },
     {
       underscoredAll: true,

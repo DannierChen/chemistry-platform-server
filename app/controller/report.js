@@ -104,6 +104,68 @@ class ReportController extends Controller {
       data: reportList
     }
   }
+
+  async getExperimentList() {
+    const { ctx } = this;
+
+    const userId = ctx.session.userId;
+
+    const userInfo = await ctx.model.User.findOne({
+      where: {
+        userId
+      }
+    });
+
+    const sUserId = userInfo.sUserId;
+
+    const recordList = await ctx.model.ScoreRecord.findAll({
+      raw: true,
+      where: {
+        user_id: sUserId,
+        origin: "experiment"
+      }
+    });
+
+    for (let i = 0; i < recordList.length; i++) {
+      const record = recordList[i];
+
+      const experimentInfo = await ctx.model.Experiment.findOne({
+        raw: true,
+        where: {
+          experimentId: record.origin_id
+        }
+      });
+
+      record.articleTitle = experimentInfo.experiment_title;
+
+
+      if (record.exam_id) {
+        const examInfo = await ctx.model.Exam.findOne({
+          raw: true,
+          where: {
+            examId: record.exam_id
+          }
+        });
+
+        record.examName = examInfo.exam_name;
+      }
+
+      const reportInfo = await ctx.model.Report.findOne({
+        raw: true,
+        where: {
+          user_id: sUserId,
+          experiment_id: experimentInfo.experimentId
+        }
+      })
+
+      record.reportInfo = reportInfo;
+    }
+
+    ctx.body = {
+      success: true,
+      data: recordList
+    };
+  }
 }
 
 module.exports = ReportController;

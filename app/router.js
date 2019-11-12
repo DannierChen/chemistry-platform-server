@@ -26,6 +26,7 @@ module.exports = app => {
 
   router.get('/record/getRecord', controller.record.getRecord);
   router.post('/record/saveRecord', controller.record.saveRecord);
+  router.get('/record/getArticleRecordList', controller.record.getArticleRecordList);
 
   router.get('/experiment/list', controller.experiment.list);
   router.post('/experiment/create', controller.experiment.create);
@@ -34,6 +35,7 @@ module.exports = app => {
   router.post('/report/saveReport', controller.report.saveReport);
   router.get('/report/getReport', controller.report.getReport);
   router.get('/report/list', controller.report.list);
+  router.get('/report/getExperimentList', controller.report.getExperimentList);
 
   router.post('/upload/upload', controller.upload.upload);
 };

@@ -33,6 +33,7 @@ module.exports = app => {
 
   router.post('/report/saveReport', controller.report.saveReport);
   router.get('/report/getReport', controller.report.getReport);
+  router.get('/report/list', controller.report.list);
 
   router.post('/upload/upload', controller.upload.upload);
 };

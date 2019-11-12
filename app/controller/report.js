@@ -77,6 +77,33 @@ class ReportController extends Controller {
       }
     }
   }
+
+  async list() {
+    const { ctx } = this;
+
+    const experimentId = ctx.query.experimentId;
+
+    const reportList = await ctx.model.Report.findAll({
+      where: {
+        experiment_id: experimentId
+      },
+      include: [
+        {
+          model: ctx.model.User,
+          attributes: ['user_name']
+        },
+        {
+          model: ctx.model.Experiment,
+          attributes: ['experiment_title']
+        }
+      ]
+    });
+
+    ctx.body = {
+      success: true,
+      data: reportList
+    }
+  }
 }
 
 module.exports = ReportController;

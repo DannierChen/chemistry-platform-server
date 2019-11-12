@@ -19,6 +19,7 @@ module.exports = app => {
 
   Report.associate = function() {
     app.model.Report.belongsTo(app.model.User, { foreignKey: 'user_id' });
+    app.model.Report.belongsTo(app.model.Experiment, { foreignKey: 'experiment_id' });
   };
 
   return Report;

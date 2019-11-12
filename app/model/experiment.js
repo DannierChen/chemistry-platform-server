@@ -18,6 +18,7 @@ module.exports = app => {
 
   Experiment.associate = () => {
     app.model.Experiment.belongsTo(app.model.User, { foreignKey: 'user_id' });
+    app.model.Experiment.hasMany(app.model.Report, { foreignKey: 'experiment_id' });
   }
 
   return Experiment;

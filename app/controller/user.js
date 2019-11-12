@@ -52,8 +52,10 @@ module.exports = class UserController extends Controller {
 
       if (ctx.get('referer').includes('portal')) {
         ctx.session.stuId = userInfo.dataValues.userId;
+        ctx.session.stuName = userInfo.dataValues.userName;
       } else {
         ctx.session.userId = userInfo.dataValues.userId;
+        ctx.session.userName = userInfo.dataValues.userName;
       }
 
       ctx.body = {

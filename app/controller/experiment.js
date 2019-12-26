@@ -53,7 +53,7 @@ class ExperimentController extends Controller {
           success: true,
           code: 200,
           data: {
-            examId: examId
+            success: true,
           },
           message: '试卷创建成功'
         };
